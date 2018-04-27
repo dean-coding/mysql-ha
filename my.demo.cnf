@@ -1,0 +1,78 @@
+[mysqld]
+
+server-id=7
+                                                
+## 打开二进制功能,MASTER主服务器必须打开此项
+log-bin=3307-bin      
+                                                 
+## 忽略不同步主从的数据库
+replicate-ignore-db = mysql                                            
+replicate-ignore-db = information_schema
+replicate-ignore-db = performance_schema
+replicate-ignore-db = zabbix
+
+## masterA自增长ID,基数
+# auto_increment_offset = 1
+# auto_increment_increment = 2 
+## masterB自增加ID,偶数
+# auto_increment_offset = 2
+# auto_increment_increment = 2     
+
+## 将复制事件写入binlog,一台服务器既做主库又做从库此选项必须要开启
+# log-slave-updates=true
+
+#########下列参数可选配置###################
+
+binlog-format=ROW
+ 
+## binlog过期清理时间
+expire_logs_days=7  
+           
+## binlog缓存大小
+binlog_cache_size=4m 
+
+## binlog单文件最大值   
+max_binlog_size=100M                                                           
+
+## 最大binlog缓存大小
+max_binlog_cache_size=512m
+
+
+max_connections = 3000
+max_connect_errors = 30
+
+
+#请求的最大连接时间                                 
+wait_timeout=1800                                                       
+interactive_timeout=1800         
+                                      
+max_allowed_packet = 10M
+bulk_insert_buffer_size = 8M
+query_cache_type = 1
+query_cache_size = 128M
+query_cache_limit = 4M
+key_buffer_size = 256M
+read_buffer_size = 16K
+
+skip-name-resolve
+slow_query_log=1
+long_query_time = 6
+slow_query_log_file=slow-query.log
+innodb_flush_log_at_trx_commit = 2
+innodb_log_buffer_size = 16M
+
+[mysql]
+no-auto-rehash
+
+[myisamchk]
+key_buffer_size = 20M
+sort_buffer_size = 20M
+read_buffer = 2M
+write_buffer = 2M
+
+[mysqlhotcopy]
+interactive-timeout
+
+[mysqldump]
+quick
+max_allowed_packet = 16M

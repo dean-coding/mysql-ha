@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  mysql-3309:
+    image: mysql:5.7.22
+    container_name: mysql-3309
+    volumes:
+      - /Users/mac/mysql-cluster/3309:/var/lib/mysql
+      - /Users/mac/mysql-cluster/my3309.cnf:/etc/mysql/my.cnf
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci,--init_connect='SET NAMES utf8mb4', --explicit_defaults_for_timestamp=1]
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: root3
+      MYSQL_DATABASE: test
+    ports: 
+      - "3309:3306"
+
+  mysql-3310:
+    image: mysql:5.7.22
+    container_name: mysql-3310
+    volumes:
+      - /Users/mac/mysql-cluster/3310:/var/lib/mysql
+      - /Users/mac/mysql-cluster/my3310.cnf:/etc/mysql/my.cnf
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci,--init_connect='SET NAMES utf8mb4', --explicit_defaults_for_timestamp=1]
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: root4
+      MYSQL_DATABASE: test
+    ports: 
+      - "3310:3306"
